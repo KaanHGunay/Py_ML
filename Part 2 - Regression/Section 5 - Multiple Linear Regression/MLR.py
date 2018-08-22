@@ -68,7 +68,7 @@ X_Modeled = backwardElimination(X_opt, SL)
 
 # Building the optimal model using Backward Elimination (with R-Squared)
 import statsmodels.formula.api as sm
-def backwardElimination(x, SL):
+def backwardElimination2(x, SL):
     numVars = len(x[0])
     temp = np.zeros((50,6)).astype(int)
     for i in range(0, numVars):
@@ -94,4 +94,4 @@ def backwardElimination(x, SL):
  
 SL = 0.05
 X_opt = X[:, [0, 1, 2, 3, 4, 5]]
-X_Modeled = backwardElimination(X_opt, SL)
+X_Modeled = backwardElimination2(X_opt, SL)
