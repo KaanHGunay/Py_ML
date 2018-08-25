@@ -1,4 +1,4 @@
-# Regression Template
+# Random Forest Regression
 
 # Data preprocessing
 import numpy as np
@@ -21,21 +21,15 @@ X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)"""
 
 # Fitting the Regression Model to the dataset
-# Create Regressor Here
+from sklearn.ensemble import RandomForestRegressor
+regressor = RandomForestRegressor(n_estimators = 300, random_state = 0)
+regressor.fit(X, y)
 
 # Predicting a new result with Polynomial Regression
 y_pred = regressor.predict(6.5)
 
-# Visualising the  Regressor result
-plt.scatter(X, Y, color = 'red')
-plt.plot(X, regressor.predict(X), color = 'blue')
-plt.title('Truth or Bluff (Regression Model)')
-plt.xlabel('Position Level')
-plt.ylabel('Salary')
-plt.show()
-
 # Visualising the  Regressor result (for higher resulation and smoother curve)
-X_grid = np.arange(min(X), max(X), 0.1)
+X_grid = np.arange(min(X), max(X), 0.01)
 X_grid = X_grid.reshape(len(X_grid), 1)
 plt.scatter(X, y, color = 'red')
 plt.plot(X_grid, regressor.predict(X_grid), color = 'blue')
