@@ -19,6 +19,10 @@ classifier.add(Convolution2D(32, 3, 3, input_shape = (64, 64, 3), activation = '
 # Step 2 - Pooling
 classifier.add(MaxPool2D(pool_size = (2, 2)))
 
+# Seconda Con. layer
+classifier.add(Convolution2D(32, 3, 3, activation = 'relu'))
+classifier.add(MaxPool2D(pool_size = (2, 2)))
+
 # Step 3 - Flattening
 classifier.add(Flatten())
 
