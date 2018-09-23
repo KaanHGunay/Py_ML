@@ -1,4 +1,4 @@
-# Verilerin Ön Yüklenmesi
+# Verilerin Ön İşlenmesi
 
 import pandas as pd
 import numpy as np
