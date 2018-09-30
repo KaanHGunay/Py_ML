@@ -11,7 +11,7 @@ X = dataset.iloc[:, [2, 3]].values
 y = dataset.iloc[:, 4].values
 
 # Splitting the dataset into the Training set and Test set
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
 
 # Feature Scaling
@@ -24,6 +24,21 @@ X_test = sc.transform(X_test)
 from sklearn.naive_bayes import GaussianNB
 classifier = GaussianNB()
 classifier.fit(X_train, y_train)
+
+# Multinomial Naive Bayes
+# from sklearn.naive_bayes import MultinomialNB
+# classifier = MultinomialNB()
+# classifier.fit(X_train, y_train)
+
+# Bernoulli Naive Bayes
+# from sklearn.naive_bayes import BernoulliNB
+# classifier = BernoulliNB()
+# classifier.fit(X_train, y_train)
+
+# Complement Naive Bayes
+# from sklearn.naive_bayes import ComplementNB
+# classifier = ComplementNB()
+# classifier.fit(X_train, y_train)
 
 # Predicting the Test set results
 y_pred = classifier.predict(X_test)
