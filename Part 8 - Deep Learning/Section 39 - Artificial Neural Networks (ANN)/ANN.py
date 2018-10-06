@@ -39,13 +39,13 @@ from keras.layers import Dense
 classifier = Sequential()
 
 # Adding the input layer and first hidden layer
-classifier.add(Dense(output_dim = 6, init = 'uniform', activation = 'relu', input_dim = 11)) # relu = rectifier algoritması
+classifier.add(Dense(kernel_initializer = "uniform", input_dim = 11, activation = "relu", units = 6)) # relu = rectifier algoritması
 
 # Adding second hidden layer
-classifier.add(Dense(output_dim = 6, init = 'uniform', activation = 'relu'))
+classifier.add(Dense(kernel_initializer = 'uniform', activation = 'relu', units = 6))
 
 # Adding the output layer
-classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid')) # sigmoid = sigmoid alogritması
+classifier.add(Dense(kernel_initializer = 'uniform', activation = 'sigmoid', units = 1)) # sigmoid = sigmoid alogritması
 
 # Compiling the ANN
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy']) # stochastic algritmalardan adam algoritması kullanılacak
