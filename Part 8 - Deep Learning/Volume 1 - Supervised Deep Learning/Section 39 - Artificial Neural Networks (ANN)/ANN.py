@@ -39,13 +39,14 @@ from keras.layers import Dense
 classifier = Sequential()
 
 # Adding the input layer and first hidden layer
-classifier.add(Dense(kernel_initializer = "uniform", input_dim = 11, activation = "relu", units = 6)) # relu = rectifier algoritması
+classifier.add(Dense(kernel_initializer = 'uniform', input_dim = 11, activation = 'relu', units = 6)) # relu = rectifier algoritması
 
 # Adding second hidden layer
 classifier.add(Dense(kernel_initializer = 'uniform', activation = 'relu', units = 6))
 
 # Adding the output layer
 classifier.add(Dense(kernel_initializer = 'uniform', activation = 'sigmoid', units = 1)) # sigmoid = sigmoid alogritması
+# Output layer ikili sonuçtan fazla ise Activation Softmax kullanılır
 
 # Compiling the ANN
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy']) # stochastic algritmalardan adam algoritması kullanılacak
@@ -62,3 +63,6 @@ y_pred = (y_pred > 0.5)
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
+
+# Tek bir örnekten predict alma 
+new_prediction = classifier.predict(sc.transform(np.array([[0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])))
