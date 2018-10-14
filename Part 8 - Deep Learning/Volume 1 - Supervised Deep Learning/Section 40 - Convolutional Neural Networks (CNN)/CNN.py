@@ -53,6 +53,37 @@ classifier.fit_generator(training_set,
                          epochs = 25,
                          validation_data = test_set,
                          nb_val_samples = 2000)
-
+ 
+# Saving and loading model
 from keras.models import load_model
-model.save('my_model.h5')
+classifier.save('my_model.h5')
+classifier = load_model('my_model.h5')
+classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+# Predict an image
+import numpy as np
+from keras.preprocessing import image
+test_image = image.load_img('cat_or_dog_3.jpg', target_size = (64, 64))
+test_image = image.img_to_array(test_image)
+test_image = np.expand_dims(test_image, axis = 0)
+result = classifier.predict(test_image)
+if result[0][0] == 1:
+    prediction = 'dog'
+else:
+    prediction = 'cat'
+
+
+# Classes
+classes = training_set.class_indices
+
+
+
+
+
+
+
+
+
+
+
+
