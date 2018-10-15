@@ -75,15 +75,3 @@ else:
 
 # Classes
 classes = training_set.class_indices
-
-
-
-
-
-
-
-
-
-
-
-
