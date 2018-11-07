@@ -57,50 +57,46 @@ transfer_values_size = K.int_shape(transfer_layer.output)[1] # Düşünce vektö
 # Sonraki adımda eğitim esnasında VGG Modeli tekrar kullanılmayacak
 # Fotoğrafların ne kadarının işlendiğini gösteren fonksiyon
 def print_progress(count, max_count):
-    pct_complete = count / max_count
-    msg = '\r- Progress: {0:.1%}'.format(pct_complete)
+    pct_complete = count / max_count    
+    msg = '\r- Progress: {0:.1%}'.format(pct_complete)    
     sys.stdout.write(msg)
     sys.stdout.flush()
     
 # Fotoğrafların işlenmesi 
-def process_images(data_dir, filenames, batch_size = 32):
+def process_images(data_dir, filenames, batch_size=32):
     num_images = len(filenames)
-    # Fotoğrafların matrislerinin tanıumlanması
     shape = (batch_size,) + img_size + (3,)
-    image_batch = np.zeros(shape = shape, dtype = np.float16)
-    # Transfer edilecek işlenmiş matris
-    shape = (num_images, transfer_values_size)
-    transfer_values = np.zeros(shape = shape, dtype = np.float16)
+    image_batch = np.zeros(shape=shape, dtype=np.float16)
     start_index = 0
     
     while start_index < num_images:
         print_progress(count = start_index, max_count = num_images)
         end_index = start_index + batch_size
-        
         if end_index > num_images:
-            end_index = end_index
-            
-        current_batch_size = end_index - start_index
+            end_index = num_images
         
+        current_batch_size = end_index - start_index
         for i, filename in enumerate(filenames[start_index:end_index]):
             path = os.path.join(data_dir, filename)
             img = load_image(path, size = img_size)
             image_batch[i] = img
             
         transfer_values_batch = image_model_transfer.predict(image_batch[0:current_batch_size])
-        transfer_values[start_index:end_index] = transfer_values_batch[0:current_batch_size]
+        transfer_values[start_index:end_index] = transfer_values_batch[0:current_batch_size]        
         start_index = end_index
+        
     print()
     return transfer_values
 
 # İşlenen fotoğrafların bilgisayarda kayıtlı ise kullan değilse hesapla
 def process_train_images():
-    print('Eğitim setindeki {0} resim işleniyor'.format(len(filenames)))
-    cache_path = os.path.join(coco.data_dir, 'transfer_values_train.pkl')
+    print('Eğitim setindeki {0} resim işleniyor...'.format(len(filenames)))    
+    cache_path = os.path.join(coco.data_dir, 'transfer_values_train.pkl')    
     transfer_values = cache(cache_path = cache_path,
                             fn = process_images,
                             data_dir = coco.train_dir,
                             filenames = filenames)
+    
     return transfer_values
 
 transfer_values = process_train_images()
